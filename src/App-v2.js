@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 
 const average = (arr) =>
@@ -150,6 +150,17 @@ function Logo() {
 }
 
 function Search({ query, setQuery }) {
+  // useEffect(function () {
+  //   const el = document.querySelector(".search");
+  //   console.log(el);
+  // }, []);
+
+  const inputEl = useRef(null);
+
+  useEffect(() => {
+    inputEl.current.focus();
+  }, []);
+
   return (
     <input
       className="search"
@@ -157,6 +168,7 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputEl}
     />
   );
 }
@@ -319,7 +331,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
                 </>
               ) : (
                 <p>
-                  You rated this movie {watchedUserRating} <spn>⭐️</spn>
+                  You rated this movie {watchedUserRating} <span>⭐️</span>
                 </p>
               )}
             </div>
